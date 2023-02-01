@@ -15,19 +15,11 @@
             <v-card
               elevation="4"
               rounded="200"
-              class="mx-auto my-16"
+              class="mx-auto my-16 rounded-lg"
               max-width="744"
               color="white"
             >
               <v-card-text>
-                <div class="d-flex justify-center">
-                  <v-avatar size="150" class="py-10 my-">
-                    <img
-                      src="https://cdn.vuetifyjs.com/images/john.jpg"
-                      alt="John"
-                    />
-                  </v-avatar>
-                </div>
                 <div>
                   <p class="text-h4 text-color d-flex justify-center">Mr can</p>
                   <p class="text-h7 text-color d-flex justify-center">
