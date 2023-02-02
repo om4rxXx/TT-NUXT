@@ -121,10 +121,36 @@
                         </v-col>
                         <v-col cols="12" sm="6">
                           <v-text-field
-                            v-model="numero"
-                            label="Numero Exter"
+                            v-model="numeroE"
+                            label="Numero Exterior"
                             outlined
                             dense
+                            color="primary"
+                          ></v-text-field>
+                        </v-col>
+                        <v-col cols="12" sm="6">
+                          <v-text-field
+                            max-width="20"
+                            v-model="password"
+                            label="Cotraseñaa"
+                            outlined
+                            dense
+                            :type="show1 ? 'text' : 'password'"
+                            :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+                            @click:append="show1 = !show1"
+                            color="primary"
+                          ></v-text-field>
+                        </v-col>
+                        <v-col cols="12" sm="6">
+                          <v-text-field
+                            max-width="20"
+                            v-model="password"
+                            label="Cotraseña"
+                            outlined
+                            dense
+                            :type="show2 ? 'text' : 'password'"
+                            :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'"
+                            @click:append="show2 = !show2"
                             color="primary"
                           ></v-text-field>
                         </v-col>
@@ -155,7 +181,21 @@
   </v-app>
 </template>
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      show1: false,
+      show2: true,
+
+      password: "Password",
+      rules: {
+        required: (value) => !!value || "Required.",
+        min: (v) => v.length >= 8 || "Min 8 characters",
+        emailMatch: () => `The email and password you entered don't match`,
+      },
+    };
+  },
+};
 </script>
 
 <style>

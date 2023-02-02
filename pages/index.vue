@@ -21,6 +21,14 @@
             >
               <v-card-text>
                 <div>
+                  <p class="text-h4 text-color d-flex justify-center">
+                    <v-avatar class="pa-10" size="160">
+                      <img
+                        src="https://cdn.vuetifyjs.com/images/john.jpg"
+                        alt="John"
+                      />
+                    </v-avatar>
+                  </p>
                   <p class="text-h4 text-color d-flex justify-center">Mr can</p>
                   <p class="text-h7 text-color d-flex justify-center">
                     Iniciar Sesión
@@ -102,7 +110,21 @@
   </v-app>
 </template>
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      show1: false,
+      show2: true,
+
+      password: "Password",
+      rules: {
+        required: (value) => !!value || "Required.",
+        min: (v) => v.length >= 8 || "Min 8 characters",
+        emailMatch: () => `The email and password you entered don't match`,
+      },
+    };
+  },
+};
 </script>
 
 <style>
