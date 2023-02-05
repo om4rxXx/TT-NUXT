@@ -168,6 +168,7 @@
                     color="#3D76F2"
                     :loading="loading"
                     @click="createUser"
+                    to="/Main/Main"
                   >
                     Iniciar Sesión
                   </v-btn>
