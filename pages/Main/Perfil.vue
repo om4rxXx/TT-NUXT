@@ -180,7 +180,6 @@
 </template>
 
 <script>
-import Default from "~/layouts/Default.vue";
 import NavL from "~/components/NavL.vue";
 import NavR from "~/components/NavR.vue";
 export default {
