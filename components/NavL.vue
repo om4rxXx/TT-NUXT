@@ -23,7 +23,7 @@
           <v-list-item-title><h3>Citas</h3></v-list-item-title>
         </v-list-item-content>
       </v-list-item>
-      <v-list-item link>
+      <v-list-item link to="/Main/Users">
         <v-list-item-icon>
           <v-icon>mdi-account-supervisor-circle</v-icon>
         </v-list-item-icon>

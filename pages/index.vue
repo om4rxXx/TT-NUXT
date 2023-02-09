@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-app-bar dense flat max-height="50" color="white"
+    <v-app-bar class="py-2" app dense flat max-height="50" color="white"
       ><v-avatar class="pa-10">
         <img src="https://cdn.vuetifyjs.com/images/john.jpg" alt="John" />
       </v-avatar>

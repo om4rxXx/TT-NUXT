@@ -157,6 +157,7 @@
                     dark
                     rounded
                     color="success"
+                    to="/Main/Main"
                   >
                     Terminar cita
                   </v-btn>
@@ -167,6 +168,7 @@
                     dark
                     rounded
                     color="#5C0FD9"
+                    to="/Main/newCita"
                   >
                     Agendar nueva cita
                   </v-btn>

@@ -1,14 +1,13 @@
 <template>
   <v-app>
-    <v-card flat>
-      <v-toolbar color="#5CBBF6" dark class="mx-3 my-1 rounded-pill" flat>
-        <v-avatar class="px-3">
-          <img src="https://cdn.vuetifyjs.com/images/john.jpg" alt="John" />
-        </v-avatar>
+    <v-app-bar app color="#5CBBF6" dark class="mx-3 my-1 rounded-pill" flat>
+      <v-avatar class="px-3">
+        <img src="https://cdn.vuetifyjs.com/images/john.jpg" alt="John" />
+      </v-avatar>
 
-        <v-toolbar-title class="ml-3">Mr Can</v-toolbar-title>
-      </v-toolbar>
-    </v-card>
+      <v-toolbar-title class="ml-3">Mr Can</v-toolbar-title>
+    </v-app-bar>
+
     <main>
       <v-card class="rounded-pill" flat tile>
         <div><p></p></div>
