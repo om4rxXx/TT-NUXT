@@ -1,5 +1,5 @@
 <template>
-  <v-navigation-drawer permanent app>
+  <v-navigation-drawer permanent app elevation="14">
     <v-list-item link to="/Main/Perfil">
       <v-list-item-content>
         <v-list-item-title class="text-h6">

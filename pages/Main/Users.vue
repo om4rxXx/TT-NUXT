@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <nav-l></nav-l>
-    <v-container class="pt-12">
+    <v-container class="pt-12 px-15">
       <v-card flat>
         <v-toolbar color="#5CBBF6" class="mx-3 my-1 rounded-pill" flat>
           <v-avatar class="px-3">
@@ -23,14 +23,17 @@
         </v-toolbar>
       </v-card>
       <div class="pt-12">
-        <v-data-table
-          :headers="headers"
-          :items="desserts"
-          item-key="name"
-          class="elevation-1"
-          :search="search"
-        >
-        </v-data-table>
+        <v-card elevation="14" class="rounded-xl">
+          <v-data-table
+            :headers="headers"
+            :items="desserts"
+            item-key="name"
+            class="elevation-1"
+            :search="search"
+            elevation="14"
+          >
+          </v-data-table>
+        </v-card>
       </div>
     </v-container>
   </v-app>
