@@ -26,7 +26,7 @@
               </p>
               <p class="text-h4 text-color d-flex justify-center">Mr can</p>
               <p class="text-h7 text-color d-flex justify-center">
-                Iniciar Sesión
+                Iniciar Sesión {{ post.id }}
               </p>
             </div>
             <div class="d-flex justify-center">
@@ -102,7 +102,14 @@ export default {
   data() {
     return {
       show1: false,
+      valid: false,
       show2: true,
+      email: "",
+      loading: false,
+      post: {
+        type: Object,
+        default: {},
+      },
 
       password: "Password",
       rules: {
@@ -111,6 +118,15 @@ export default {
         emailMatch: () => `The email and password you entered don't match`,
       },
     };
+  },
+  created: function () {
+    fetch("https://jsonplaceholder.typicode.com/posts/1")
+      .then((response) => {
+        return response.json();
+      })
+      .then((result) => {
+        this.post = result;
+      });
   },
 };
 </script>
