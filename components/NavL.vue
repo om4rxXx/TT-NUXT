@@ -4,7 +4,7 @@
       <v-list-item-content>
         <v-list-item-title class="text-h6">
           <template v-if="veterinario.foto_veterinario">
-            <v-avatar class="px-3 mr-2">
+            <v-avatar>
               <img
                 :src="'data:image/png;base64,' + veterinario.foto_veterinario"
                 alt="John"
@@ -12,7 +12,7 @@
             </v-avatar>
           </template>
           <template v-else
-            ><v-avatar><v-icon x-large>mdi-account</v-icon></v-avatar>
+            ><img src="~/assets/images/logito.png" alt="John" />
           </template>
           {{ veterinario.nombre_veterinario }}
           {{ veterinario.apellido_veterinario }}

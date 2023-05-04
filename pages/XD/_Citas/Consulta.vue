@@ -94,8 +94,9 @@
               >
               <v-card-text>
                 <v-form ref="form">
-                  <div class="text-center my-1 py-1">
+                  <v-row class="py-0 my-0">
                     <v-select
+                      class="my-0 py-0"
                       rounded
                       v-model="tipo"
                       :items="items"
@@ -105,12 +106,13 @@
                       chips
                       :rules="[rules.required]"
                     ></v-select>
-                  </div>
+                  </v-row>
 
-                  <v-row>
+                  <v-row class="my-0 py-0">
                     <v-col cols="6" sm="6" md="6">
                       <v-text-field
                         rounded
+                        class="my-0 py-0"
                         dense
                         label="Proxima aplicacion"
                         outlined
@@ -119,6 +121,7 @@
                     </v-col>
                     <v-col cols="6" sm="6" md="6">
                       <v-text-field
+                        class="my-0 py-0"
                         rounded
                         dense
                         label="Peso de mascota"
@@ -127,8 +130,9 @@
                         :rules="[rules.required]"
                       ></v-text-field>
                     </v-col>
-                    <v-col cols="12" sm="6">
+                    <v-col cols="12" sm="6" md="6">
                       <v-text-field
+                        class="my-0 py-0"
                         rounded
                         dense
                         label="Producto"
@@ -137,8 +141,9 @@
                         :rules="[rules.required]"
                       ></v-text-field>
                     </v-col>
-                    <v-col cols="12" sm="6">
+                    <v-col cols="12" sm="6" md="6">
                       <v-text-field
+                        class="my-0 py-0"
                         rounded
                         dense
                         label="Quien aplico"
@@ -148,56 +153,55 @@
                       ></v-text-field>
                     </v-col>
                   </v-row>
-                  <div class="text-center my-1 py-1">
-                    <v-text-field
-                      rounded
-                      v-model="Des"
-                      label="Descripcion"
-                      outlined
-                      dense
-                      color="primary"
-                      :rules="[rules.required]"
-                    ></v-text-field>
-                  </div>
-                  <div class="text-center my-1 py-1">
-                    <v-text-field
-                      rounded
-                      v-model="Observa"
-                      label="Observaciones"
-                      outlined
-                      dense
-                      color="primary"
-                    ></v-text-field>
-                  </div>
-                </v-form>
-                <v-card-actions class="d-flex justify-center">
-                  <div class="text-center">
-                    <v-btn
-                      height="40"
-                      class="btn-center mx-5"
-                      dark
-                      rounded
-                      color="success"
-                      depressed
-                      :disabled="!formularioCompleto"
-                      @click="crearConsulta(cita.id_mascota)"
-                    >
-                      Terminar cita
-                    </v-btn>
 
-                    <v-btn
-                      height="40"
-                      class="btn-center"
-                      dark
-                      rounded
-                      color="#5C0FD9"
-                      :disabled="!formularioCompleto"
-                      @click="Terminarconsulta(cita.id_mascota)"
-                    >
-                      Agendar nueva cita
-                    </v-btn>
-                  </div>
-                </v-card-actions>
+                  <v-text-field
+                    class="my-0 py-0"
+                    rounded
+                    v-model="Des"
+                    label="Descripcion"
+                    outlined
+                    dense
+                    color="primary"
+                    :rules="[rules.required]"
+                  ></v-text-field>
+
+                  <v-text-field
+                    class="my-0 py-0"
+                    rounded
+                    v-model="Observa"
+                    label="Observaciones"
+                    outlined
+                    dense
+                    color="primary"
+                  ></v-text-field>
+                </v-form>
+
+                <div class="text-center">
+                  <v-btn
+                    height="40"
+                    class="btn-center mx-5"
+                    dark
+                    rounded
+                    color="success"
+                    depressed
+                    :disabled="!formularioCompleto1"
+                    @click="crearConsulta(cita.id_mascota)"
+                  >
+                    Terminar cita
+                  </v-btn>
+
+                  <v-btn
+                    height="40"
+                    class="btn-center"
+                    dark
+                    rounded
+                    color="#5C0FD9"
+                    :disabled="!formularioCompleto1"
+                    @click="Terminarconsulta(cita.id_mascota)"
+                  >
+                    Agendar nueva cita
+                  </v-btn>
+                </div>
               </v-card-text>
             </v-col>
           </v-card>
@@ -260,7 +264,7 @@ export default {
     }
   },
   computed: {
-    formularioCompleto() {
+    formularioCompleto1() {
       return (
         this.tipo && this.PesoM && this.Producto && this.Aplico && this.Des
       );

@@ -32,7 +32,7 @@
                       alt="John"
                   /></template>
                   <template v-else>
-                    <v-icon>mdi-account</v-icon>
+                    <v-icon>mdi-paw</v-icon>
                   </template>
                 </v-avatar></v-col
               >
@@ -56,20 +56,7 @@
                   </v-list-item>
                 </v-list></v-col
               ><v-col sm="5" md="5">
-                <v-list lines="one" density="compact"
-                  ><v-list-item>
-                    <v-list-item-content>
-                      <v-list-item-title
-                        >Nacimiento:
-                        {{
-                          " " +
-                          moment(mascota.fecha_nacimiento_mascota)
-                            .locale("es")
-                            .format("DD/MM/YY")
-                        }}
-                      </v-list-item-title>
-                    </v-list-item-content>
-                  </v-list-item>
+                <v-list lines="one" density="compact">
                   <v-list-item>
                     <v-list-item-content>
                       <v-list-item-title
@@ -95,7 +82,7 @@
               <v-row>
                 <v-col sm="8" md="8" lg="8">
                   <v-list lines="one" density="compact" class="pl-5">
-                    <p>Edad:</p>
+                    <p>Nacimiento:</p>
                     <p>Raza:</p>
                     <p>Padecimientos:</p>
                     <p>Sexo:</p>

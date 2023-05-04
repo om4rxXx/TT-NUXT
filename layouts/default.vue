@@ -1,6 +1,6 @@
 <template color="#F5F5F5">
   <v-app color="#5CBBF6">
-    <!--<v-snackbar
+    <v-snackbar
       v-model="snackbar"
       :multi-line="multiLine"
       shaped
@@ -22,7 +22,7 @@
           <v-icon large>mdi-close-circle</v-icon>
         </v-btn>
       </template>
-    </v-snackbar>-->
+    </v-snackbar>
     <v-main color="#5CBBF6">
       <v-container color="#F5F5F5">
         <Nuxt />
@@ -43,12 +43,16 @@ export default {
       anterior: "",
       multiLine: true,
       snackbar: false,
+      snackbar1: false,
+      numCitas: "",
+      numCitasAnterior: "",
       text: `Nueva cita agregada`,
     };
   },
   mounted() {
     this.actualizarVet(); // Ejecuta la función una vez cuando se carga el componente
     setInterval(this.actualizarVet, 5000); // Ejecuta la función cada 5 segundos
+    setInterval(this.actualizarVet, 10000);
   },
 
   methods: {
@@ -57,20 +61,19 @@ export default {
       axios
         .get("http://localhost:8080/xampp/axios/api/veterinario.php", {})
         .then((response) => {
-          const numCitas = response.data.num_citas;
-
-          // Actualiza el valor de this.citas sólo si ha habido un cambio
-          if (numCitas !== this.citas) {
-            console.log("SDSDS", numCitas);
-            this.anterior = this.citas;
-            this.citas = numCitas;
-
-            // Verifica si ha habido un cambio
-            if (this.anterior === undefined || this.citas > this.anterior) {
-              console.log("Hola");
-              this.snackbar = true;
-            }
+          this.numCitasAnterior = this.numCitas;
+          this.numCitas = response.data.num_citas;
+          // console.log("Notificacion", this.numCitas);
+          if (
+            this.numCitas === this.numCitasAnterior ||
+            this.numCitas <= this.numCitasAnterior
+          ) {
+            console.log("hola");
+          } else {
+            console.log("XD");
+            this.snackbar = true;
           }
+          // this.numCitas = this.numCitasAnterior;
         })
         .catch((error) => {
           console.error(error);

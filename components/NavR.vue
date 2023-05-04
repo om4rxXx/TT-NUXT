@@ -147,7 +147,7 @@ export default {
           console.log(response.data);
           this.anterior = this.citas;
           this.citas = response.data.num_citas;
-          console.log("SDSDS", this.citas);
+
           if (this.citas > this.anterior) {
             console.log("Hola");
           }

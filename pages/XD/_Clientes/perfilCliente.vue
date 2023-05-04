@@ -87,31 +87,6 @@
                     }}</v-list-item-title>
                   </v-list-item-content>
                 </v-list-item>
-                <v-list-item>
-                  <v-list-item-content>
-                    <v-list-item-title
-                      ><h2>Información adicional</h2></v-list-item-title
-                    >
-                  </v-list-item-content>
-                </v-list-item>
-                <v-list-item>
-                  <v-list-item-icon>
-                    <v-icon>mdi-calendar-badge-outline</v-icon>
-                  </v-list-item-icon>
-
-                  <v-list-item-content>
-                    <v-list-item-title>11/05/2023</v-list-item-title>
-                  </v-list-item-content>
-                </v-list-item>
-                <v-list-item>
-                  <v-list-item-icon>
-                    <v-icon>mdi-paw</v-icon>
-                  </v-list-item-icon>
-
-                  <v-list-item-content>
-                    <v-list-item-title>80 </v-list-item-title>
-                  </v-list-item-content>
-                </v-list-item>
               </v-list>
             </v-card-text>
           </v-card>
@@ -171,7 +146,7 @@
 
                       <v-list-item-content>
                         <v-list-item-title>{{
-                          citas.Medicas
+                          citas.Medica
                         }}</v-list-item-title>
                       </v-list-item-content> </v-list-item
                     ><v-list-item>
@@ -372,6 +347,9 @@
                 </v-list-item>
               </v-list></v-card
             >
+            <v-row v-if="mascotas.length === 0" class="d-flex justify-center">
+              <h2 class="py-7">No hay mascotas</h2>
+            </v-row>
           </v-row>
         </v-col>
       </v-row>
@@ -561,7 +539,7 @@ export default {
           // Manejar la respuesta exitosa
           console.log(response.data);
           this.dialogEliminar = false;
-          window.location.reload();
+          //window.location.reload();
           // Actualizar la lista de mascotas para reflejar el cambio
         })
         .catch((error) => {
@@ -590,8 +568,8 @@ export default {
           // Manejar la respuesta exitosa
           console.log(response.data);
 
-          this.dialogCrear = false;
-          window.location.reload();
+          this.dialogEditar = false;
+          // window.location.reload();
         })
         .catch((error) => {
           // Manejar el error
@@ -612,11 +590,58 @@ export default {
         .then((response) => {
           // Manejar la respuesta exitosa
           console.log(response.data);
-          this.dialogEliminar = false;
-          window.location.reload();
+          this.dialogCrear = false;
+          // window.location.reload();
         })
         .catch((error) => {
           // Manejar el error
+          console.error(error);
+        });
+    },
+    actualizar() {
+      // traer usuario
+      axios
+        .get("http://localhost:8080/xampp/axios/api/traerUser.php", {
+          params: {
+            id_usuario: parseInt(this.$route.params.Clientes), //ahorita
+          },
+        })
+        .then((response) => {
+          this.usuario = response.data;
+          console.log(this.$route.params.Clientes);
+          console.log(this.usuario);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+      //nueva traer mascotas
+      axios
+        .get("http://localhost:8080/xampp/axios/api/trareMascotas.php", {
+          params: {
+            id_usuario: parseInt(this.$route.params.Clientes),
+          },
+        })
+        .then((response) => {
+          this.mascotas = response.data;
+          console.log(this.$route.params.Clientes);
+          console.log(this.mascotas);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+      /// traer resumen de citas
+      axios
+        .get("http://localhost:8080/xampp/axios/api/CitasUsuario.php", {
+          params: {
+            id_usuario: parseInt(this.$route.params.Clientes),
+          },
+        })
+        .then((response) => {
+          this.citas = response.data;
+          console.log(this.$route.params.Clientes);
+          console.log(this.citas);
+        })
+        .catch((error) => {
           console.error(error);
         });
     },
@@ -632,57 +657,14 @@ export default {
   },
 
   mounted() {
+    this.actualizar(); // Ejecuta la función una vez cuando se carga el componente
+    setInterval(this.actualizar, 2000);
     const existe = this.checkCookie();
     if (existe) {
       console.log("La cookie existe");
     } else {
       this.$router.push("/");
     }
-    // traer usuario
-    axios
-      .get("http://localhost:8080/xampp/axios/api/traerUser.php", {
-        params: {
-          id_usuario: parseInt(this.$route.params.Clientes), //ahorita
-        },
-      })
-      .then((response) => {
-        this.usuario = response.data;
-        console.log(this.$route.params.Clientes);
-        console.log(this.usuario);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-    //nueva traer mascotas
-    axios
-      .get("http://localhost:8080/xampp/axios/api/trareMascotas.php", {
-        params: {
-          id_usuario: parseInt(this.$route.params.Clientes),
-        },
-      })
-      .then((response) => {
-        this.mascotas = response.data;
-        console.log(this.$route.params.Clientes);
-        console.log(this.mascotas);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-    /// traer resumen de citas
-    axios
-      .get("http://localhost:8080/xampp/axios/api/CitasUsuario.php", {
-        params: {
-          id_usuario: parseInt(this.$route.params.Clientes),
-        },
-      })
-      .then((response) => {
-        this.citas = response.data;
-        console.log(this.$route.params.Clientes);
-        console.log(this.citas);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
   },
 };
 </script>

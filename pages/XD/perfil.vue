@@ -153,7 +153,7 @@
                               hide-input
                               :rules="img"
                               accept="image/png, image/jpeg, image/bmp"
-                              prepend-icon="mdi-pencil"
+                              prepend-icon=""
                               @change="handleFileUpload"
                             ></v-file-input>
                           </v-list-item-icon> </v-list-item
@@ -186,6 +186,30 @@
           </v-form>
         </v-card>
       </v-row>
+      <v-snackbar
+        v-model="snackbar2"
+        :multi-line="multiLine"
+        shaped
+        top
+        centered
+        color="success"
+        dark
+      >
+        <h3>Editado correctamente</h3>
+
+        <template v-slot:action="{ attrs }">
+          <v-btn
+            v-bind="attrs"
+            @click="snackbar2 = false"
+            class="ma-2"
+            text
+            icon
+            color="white"
+          >
+            <v-icon large>mdi-close-circle</v-icon>
+          </v-btn>
+        </template>
+      </v-snackbar>
     </v-container>
   </v-app>
 </template>
@@ -210,6 +234,7 @@ export default {
       },
       show1: false,
       show2: false,
+      snackbar2: false,
       Nombre: "",
       Telefono: "",
       Estado: "",
@@ -221,6 +246,7 @@ export default {
       Ciudad: "",
       Postal: "",
       NumeroE: "",
+      bytes: null,
       imag: "" as string | ArrayBuffer | null,
       password: "Password",
       color: "",
@@ -229,9 +255,9 @@ export default {
       rules: {
         min: (v: string | any[]) => v.length >= 8 || "Minimo 8 caracteres",
         emailMatch: () => `The email and password you entered don't match`,
-        emailValido: (v) =>
+        emailValido: (v: string) =>
           /.+@.+\..+/.test(v) || "Correo electrónico inválido",
-        contraseñaSegura: (v) => {
+        contraseñaSegura: (v: string) => {
           if (!v) {
             return true; // No hay contraseña para validar
           }
@@ -284,31 +310,49 @@ export default {
       const reader = new FileReader();
 
       reader.onload = (event) => {
-        this.imag = reader.result;
+        const blob = new Blob([reader.result], { type: file.type });
+        const readerBytes = new FileReader();
+
+        readerBytes.onload = (event) => {
+          const bytes = new Uint8Array(readerBytes.result);
+          this.bytes = bytes; // Almacenar los bytes en la variable de estado
+          const blobImage = new Blob([bytes], { type: file.type });
+          const imageUrl = URL.createObjectURL(blobImage);
+          console.log(imageUrl); // Mostrar la imagen en la consola
+        };
+
+        readerBytes.readAsArrayBuffer(blob);
       };
 
-      reader.readAsDataURL(file);
+      reader.readAsArrayBuffer(file);
     },
+
     editarVeterinario() {
-      console.log("AQUIIIII", this.imag);
       axios
-        .put("http://localhost:8080/xampp/axios/api/editarVeterinario.php", {
-          nombre_veterinario: this.Nombre,
-          apellido_veterinario: this.Apellido,
-          telefono_veterinario: this.Telefono,
-          email_veterinario: this.Email,
-          estado_veterinario: this.Estado,
-          ciudad_veterinario: this.Ciudad,
-          colonia_veterinario: this.Colonia,
-          cp_veterinario: this.Postal,
-          calle_veterinario: this.Calle,
-          num_ext_veterinario: this.NumeroE,
-          password_veterinario: this.Password,
-          foto_veterinario: this.imag,
+        .get("http://localhost:8080/xampp/axios/api/editarVeterinario.php", {
+          params: {
+            nombre_veterinario: this.Nombre,
+            apellido_veterinario: this.Apellido,
+            telefono_veterinario: this.Telefono,
+            email_veterinario: this.Email,
+            estado_veterinario: this.Estado,
+            ciudad_veterinario: this.Ciudad,
+            colonia_veterinario: this.Colonia,
+            cp_veterinario: this.Postal,
+            calle_veterinario: this.Calle,
+            num_ext_veterinario: this.NumeroE,
+            password_veterinario: this.Password,
+            foto_veterinario: this.imag,
+          },
         })
         .then((response) => {
           // Manejar la respuesta exitosa
-          console.log("Exitoso", response.data);
+          console.log("Exitoso", response.data.foto_veterinario);
+
+          this.snackbar2 = true;
+          setTimeout(() => {
+            this.$router.push("principal");
+          }, 5000);
 
           //window.location.reload();
         })

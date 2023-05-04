@@ -61,10 +61,12 @@
                 </v-form>
               </div>
 
-              <div class="d-flex justify-end mr-12 pr-12">
-                <a href="/recuperar" class="text-decoration-none mr-10 pr-10"
-                  >¿Olvidaste la contraseña?
-                </a>
+              <div class="d-flex justify-end">
+                <v-btn to="/recuperar" text>
+                  <a class="text-decoration-none"
+                    >¿Olvidaste la contraseña?
+                  </a></v-btn
+                >
               </div>
               <p></p>
               <div class="d-flex justify-center">
@@ -90,17 +92,7 @@
       </v-row>
     </v-content>
     <v-footer app color="primary lighten-1" padless>
-      <v-col
-        class="primary lighten-2 py-1 text-center white--text"
-        cols="12"
-        v-for="veterinario in veterinarios"
-        :key="veterinario.id_mascota"
-      >
-        {{ veterinario.nombre_usuario }}
-
-        Mr Can
-      </v-col>
-      <v-col class="primary py-1 text-center white--text" cols="12">
+      <v-col class="primary lighten-2 py-1 text-center white--text" cols="12">
         {{ new Date().getFullYear() }} — Vuetify
       </v-col>
     </v-footer>
@@ -149,7 +141,7 @@ export default {
         required: (value: any) => !!value || "Campo requerido",
         min: (v: string | any[]) => v.length >= 8 || "Minimo 8 caracteres",
         emailMatch: () => `The email and password you entered don't match`,
-        emailValido: (v) =>
+        emailValido: (v: string) =>
           /.+@.+\..+/.test(v) || "Correo electrónico inválido",
       },
     };
@@ -171,9 +163,6 @@ export default {
   },
 
   methods: {
-    myFunction(id) {
-      this.$router.push(id + "/principal");
-    },
     eliminarCookie() {
       document.cookie =
         "Veterinario=" + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";

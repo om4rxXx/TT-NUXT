@@ -5,7 +5,7 @@
     <v-container>
       <h2 class="py-7"></h2>
 
-      <v-card flat rounded="xl" elevation="2" outlined
+      <v-card flat rounded="xl" elevation="14" outlined
         ><div><p></p></div>
         <div class="d-flex justify-center">
           <v-card-title>Agendar Cita</v-card-title>
@@ -18,7 +18,7 @@
                   <v-card flat>
                     <v-row class="pb-5">
                       <v-col sm="3" md="3">
-                        <v-avatar size="90">
+                        <v-avatar size="90" color="blue-grey lighten-4">
                           <template v-if="mascota.foto_mascota">
                             <v-img
                               :src="
@@ -27,7 +27,7 @@
                             ></v-img>
                           </template>
                           <template v-else>
-                            <v-icon>mdi-account</v-icon>
+                            <v-icon>mdi-paw</v-icon>
                           </template>
                         </v-avatar></v-col
                       >
@@ -255,7 +255,7 @@ export default {
       const dayOfWeek = new Date(date).getDay();
 
       // Permitimos solo las fechas que no son sábado ni domingo
-      return dayOfWeek !== 5 && dayOfWeek !== 6;
+      return dayOfWeek !== 6 && dayOfWeek !== 6;
     },
     onTipoSelect() {
       this.tipo = this.tipo.trim();

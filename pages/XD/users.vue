@@ -62,29 +62,22 @@
                 >
               </template>
               <template v-slot:[`item.num_mascotas`]="{ item }">
-                <!-- <v-chip-group
-                :value="item.mascotas.map((value) => value.nombre_mascota)"
-                column
-                multiple
-              > -->
                 <v-chip class="ma-2" color="#5CBBF6" dark>
                   {{ item.num_mascotas }}
                 </v-chip>
-                <!--v-for="mascota in mascotas"
-                :key="mascota.nombre_mascota"
-                :value="mascota.nombre_mascota"
-                </v-chip-group>-->
               </template>
               <template v-slot:[`item.baja_usuario`]="{ item }">
-                <v-btn
-                  class="ma-2"
-                  text
-                  icon
-                  color="red lighten-2"
-                  @click="openDialogEliminar(item.id_usuario, 1)"
-                >
-                  <v-icon>mdi-delete</v-icon>
-                </v-btn>
+                <div v-if="item.estatus_usuario != 1">
+                  <v-btn
+                    class="ma-2"
+                    text
+                    icon
+                    color="red lighten-2"
+                    @click="openDialogEliminar(item.id_usuario, 1)"
+                  >
+                    <v-icon>mdi-delete</v-icon>
+                  </v-btn>
+                </div>
               </template>
             </v-data-table>
           </v-card>
