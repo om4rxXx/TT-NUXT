@@ -209,14 +209,16 @@ export default {
       calle: "",
       numeroE: "",
       Password: "",
+      r: 12331,
+      foto_veterinario: null,
       //password: "Password",
       rules: {
         required: (value: any) => !!value || "Campo requerido",
         min: (v: string | any[]) => v.length >= 10 || "Minimo 10 digitos",
         emailMatch: () => `The email and password you entered don't match`,
-        emailValido: (v) =>
+        emailValido: (v: string) =>
           /.+@.+\..+/.test(v) || "Correo electrónico inválido",
-        contraseñaSegura: (v) => {
+        contraseñaSegura: (v: string | any[]) => {
           if (!v) {
             return true; // No hay contraseña para validar
           }
@@ -267,6 +269,7 @@ export default {
           calle_veterinario: this.calle,
           num_ext_veterinario: this.numeroE,
           password_veterinario: this.Password,
+          //foto_veterinario: null,
         })
         .then((response) => {
           // Manejar la respuesta exitosa

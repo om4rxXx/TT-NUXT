@@ -149,15 +149,24 @@
                           </v-list-item-content>
                           <v-list-item-icon>
                             <v-file-input
-                              type="file"
                               hide-input
+                              v-model="selectedFile"
+                              label="Seleccionar archivo"
                               :rules="img"
                               accept="image/png, image/jpeg, image/bmp"
-                              prepend-icon=""
-                              @change="handleFileUpload"
+                              prepend-icon="mdi-pencil"
                             ></v-file-input>
-                          </v-list-item-icon> </v-list-item
-                      ></v-list>
+                          </v-list-item-icon>
+                        </v-list-item>
+                        <div class="d-flex justify-center">
+                          <v-btn
+                            color="#5CBBF6"
+                            class="btn-center white--text rounded-xl ma-6"
+                            @click="convertAndLogBase64"
+                            >subir foto</v-btn
+                          >
+                        </div></v-list
+                      >
                     </v-card>
                   </div>
                 </v-col>
@@ -237,6 +246,8 @@ export default {
       snackbar2: false,
       Nombre: "",
       Telefono: "",
+      imageSrc: null,
+      selectedFile: null,
       Estado: "",
       Colonia: "",
       Calle: "",
@@ -247,7 +258,7 @@ export default {
       Postal: "",
       NumeroE: "",
       bytes: null,
-      imag: "" as string | ArrayBuffer | null,
+
       password: "Password",
       color: "",
       veterinario: [],
@@ -295,6 +306,38 @@ export default {
     }
   },
   methods: {
+    convertToBase64(file: Blob | null) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => {
+          const base64 = btoa(reader.result);
+          resolve(base64);
+        };
+        reader.onerror = (error) => {
+          reject(error);
+        };
+        reader.readAsBinaryString(file);
+      });
+    },
+    async convertAndLogBase64() {
+      const base64 = await this.convertToBase64(this.selectedFile);
+      console.log(base64);
+
+      axios
+        .post("http://localhost:8080/xampp/axios/api/enviarfoto.php", {
+          foto_veterinario: base64,
+        })
+        .then((response) => {
+          // Manejar la respuesta exitosa
+          console.log("Exitoso", response.data);
+
+          //window.location.reload();
+        })
+        .catch((error) => {
+          // Manejar el error
+          console.error(error);
+        });
+    },
     checkCookie() {
       const cookies = document.cookie.split("; ");
       for (let i = 0; i < cookies.length; i++) {
@@ -304,27 +347,6 @@ export default {
         }
       }
       return false; // La cookie no existe
-    },
-    handleFileUpload(e) {
-      const file = e;
-      const reader = new FileReader();
-
-      reader.onload = (event) => {
-        const blob = new Blob([reader.result], { type: file.type });
-        const readerBytes = new FileReader();
-
-        readerBytes.onload = (event) => {
-          const bytes = new Uint8Array(readerBytes.result);
-          this.bytes = bytes; // Almacenar los bytes en la variable de estado
-          const blobImage = new Blob([bytes], { type: file.type });
-          const imageUrl = URL.createObjectURL(blobImage);
-          console.log(imageUrl); // Mostrar la imagen en la consola
-        };
-
-        readerBytes.readAsArrayBuffer(blob);
-      };
-
-      reader.readAsArrayBuffer(file);
     },
 
     editarVeterinario() {
@@ -342,7 +364,6 @@ export default {
             calle_veterinario: this.Calle,
             num_ext_veterinario: this.NumeroE,
             password_veterinario: this.Password,
-            foto_veterinario: this.imag,
           },
         })
         .then((response) => {
