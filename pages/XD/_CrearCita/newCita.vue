@@ -195,15 +195,13 @@ export default {
         "6:00 PM",
       ],
       ocupados24: [],
-      ocupados12: [],
+      ocupados12: [] as String[],
       tipo: "",
       moment: moment,
       picker: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
         .toISOString()
         .substr(0, 10),
-      date: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
-        .toISOString()
-        .substr(0, 10),
+
       minDate: new Date(Date.now() - 8640000).toISOString().substr(0, 10),
       mascota: [],
       rules: {
@@ -250,7 +248,7 @@ export default {
           console.error("Error updating date on server:", error);
         });
     },
-    allowedDates(date) {
+    allowedDates(date: string | number | Date) {
       // Obtenemos el día de la semana (0 = domingo, 6 = sábado)
       const dayOfWeek = new Date(date).getDay();
 
