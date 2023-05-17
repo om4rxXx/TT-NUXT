@@ -11,8 +11,10 @@
               />
             </v-avatar>
           </template>
-          <template v-else
-            ><img src="~/assets/images/logito.png" alt="John" />
+          <template v-else>
+            <v-avatar
+              ><img src="~/assets/images/logito.png" alt="John"
+            /></v-avatar>
           </template>
           {{ veterinario.nombre_veterinario }}
           {{ veterinario.apellido_veterinario }}

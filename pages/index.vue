@@ -219,6 +219,4 @@ export default {
 }
 </style>
 
-function delete_cookie() {
-  throw new Error('Function not implemented.');
-}
+

@@ -131,6 +131,7 @@
                             'data:image/png;base64,' +
                             veterinario.foto_veterinario
                           "
+                          alt="John"
                         ></v-img>
                       </template>
                       <template v-else>
