@@ -257,19 +257,21 @@ export default {
   methods: {
     CrearVeterinario() {
       axios
-        .post("http://localhost:8080/xampp/axios/api/CrearVeterinario.php", {
-          nombre_veterinario: this.Nombre,
-          apellido_veterinario: this.Apellido,
-          telefono_veterinario: parseInt(this.Telefono),
-          email_veterinario: this.email,
-          estado_veterinario: this.estado,
-          ciudad_veterinario: this.Ciudad,
-          colonia_veterinario: this.Colonia,
-          cp_veterinario: parseInt(this.postal),
-          calle_veterinario: this.calle,
-          num_ext_veterinario: this.numeroE,
-          password_veterinario: this.Password,
-          //foto_veterinario: null,
+        .get("http://localhost:8080/xampp/axios/api/CrearVeterinario.php", {
+          params: {
+            nombre_veterinario: this.Nombre,
+            apellido_veterinario: this.Apellido,
+            telefono_veterinario: parseInt(this.Telefono),
+            email_veterinario: this.email,
+            estado_veterinario: this.estado,
+            ciudad_veterinario: this.Ciudad,
+            colonia_veterinario: this.Colonia,
+            cp_veterinario: parseInt(this.postal),
+            calle_veterinario: this.calle,
+            num_ext_veterinario: this.numeroE,
+            password_veterinario: this.Password,
+            //foto_veterinario: null,
+          },
         })
         .then((response) => {
           // Manejar la respuesta exitosa

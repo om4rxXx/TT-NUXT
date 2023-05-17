@@ -116,6 +116,7 @@
                         dense
                         label="Proxima aplicacion"
                         outlined
+                        :rules="[rules.required]"
                         v-model="ProximaA"
                       ></v-text-field>
                     </v-col>
@@ -185,7 +186,7 @@
                     color="success"
                     depressed
                     :disabled="!formularioCompleto1"
-                    @click="crearConsulta(cita.id_mascota)"
+                    @click="crearConsulta(cita.id_mascota, cita.id_usuario)"
                   >
                     Terminar cita
                   </v-btn>
@@ -266,7 +267,12 @@ export default {
   computed: {
     formularioCompleto1() {
       return (
-        this.tipo && this.PesoM && this.Producto && this.Aplico && this.Des
+        this.tipo &&
+        this.PesoM &&
+        this.Producto &&
+        this.Aplico &&
+        this.Des &&
+        this.ProximaA
       );
     },
   },
@@ -289,26 +295,27 @@ export default {
 
       // Agrega esto si quieres eliminar espacios en blanco al inicio y al final del valor seleccionado
     },
-    crearConsulta(idmascota: string) {
-      console.log(parseInt(idmascota));
-
+    crearConsulta(idmascota: string, idUser: string) {
+      console.log(this.formatDate(this.ProximaA));
       axios
-        .post("http://localhost:8080/xampp/axios/api/CrearConsulta.php", {
-          id_usuario: parseInt(this.$route.params.Clientes),
-          tipo_consulta: this.tipo,
-          proxima_cita_consulta: this.formatDate(this.ProximaA),
-          peso_consulta: this.PesoM,
-          producto_consulta: this.Producto,
-          aplico_consulta: this.Aplico,
-          descripcion_consulta: this.Des,
-          observaciones_consulta: this.Observa,
-          id_mascota: parseInt(idmascota),
-          id_cita: parseInt(this.$route.params.Citas),
+        .get("http://localhost:8080/xampp/axios/api/CrearConsulta.php", {
+          params: {
+            id_usuario: idUser,
+            tipo_consulta: this.tipo,
+            proxima_cita_consulta: this.formatDate(this.ProximaA),
+            peso_consulta: this.PesoM,
+            producto_consulta: this.Producto,
+            aplico_consulta: this.Aplico,
+            descripcion_consulta: this.Des,
+            observaciones_consulta: this.Observa,
+            id_mascota: idmascota,
+            id_cita: this.$route.params.Citas,
+          },
         })
         .then((response) => {
           // Manejar la respuesta exitosa
           //window.location.reload();
-          window.history.back();
+          // window.history.back();
         })
         .catch((error) => {
           // Manejar el error
@@ -319,17 +326,19 @@ export default {
       console.log(parseInt(idmascota));
 
       axios
-        .post("http://localhost:8080/xampp/axios/api/CrearConsulta.php", {
-          id_usuario: parseInt(this.$route.params.Clientes),
-          tipo_consulta: this.tipo,
-          proxima_cita_consulta: this.formatDate(this.ProximaA),
-          peso_consulta: this.PesoM,
-          producto_consulta: this.Producto,
-          aplico_consulta: this.Aplico,
-          descripcion_consulta: this.Des,
-          observaciones_consulta: this.Observa,
-          id_mascota: parseInt(idmascota),
-          id_cita: parseInt(this.$route.params.Citas),
+        .get("http://localhost:8080/xampp/axios/api/CrearConsulta.php", {
+          params: {
+            id_usuario: this.$route.params.Clientes,
+            tipo_consulta: this.tipo,
+            proxima_cita_consulta: this.formatDate(this.ProximaA),
+            peso_consulta: this.PesoM,
+            producto_consulta: this.Producto,
+            aplico_consulta: this.Aplico,
+            descripcion_consulta: this.Des,
+            observaciones_consulta: this.Observa,
+            id_mascota: parseInt(idmascota),
+            id_cita: parseInt(this.$route.params.Citas),
+          },
         })
         .then((response) => {
           // Manejar la respuesta exitosa

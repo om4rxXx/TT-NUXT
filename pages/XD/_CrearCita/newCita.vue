@@ -209,6 +209,29 @@ export default {
       },
     };
   },
+
+  mounted() {
+    const existe = this.checkCookie();
+    if (existe) {
+      console.log("La cookie existe");
+    } else {
+      this.$router.push("/");
+    }
+    // traer mascota
+    //console.log(this.$route.params.mascota);
+    axios
+      .get("http://localhost:8080/xampp/axios/api/traerMascota.php", {
+        params: {
+          id_mascota: parseInt(this.$route.params.CrearCita), //ahorita
+        },
+      })
+      .then((response) => {
+        this.mascota = response.data;
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  },
   methods: {
     checkCookie() {
       const cookies = document.cookie.split("; ");
@@ -257,26 +280,28 @@ export default {
     },
     onTipoSelect() {
       this.tipo = this.tipo.trim();
-      console.log("hola pend", this.tipo.trim());
+      // console.log("hola pend", this.tipo.trim());
       // Agrega esto si quieres eliminar espacios en blanco al inicio y al final del valor seleccionado
     },
     crearCita(idusuario: string) {
-      console.log(parseInt(idusuario));
-      axios
-        .post("http://localhost:8080/xampp/axios/api/CrearCita.php", {
-          id_mascota: parseInt(this.$route.params.CrearCita),
-          tipo_cita: this.tipo.trim(),
-          descripcion_cita: this.Descri, //this.formatDate(this.ProximaA),
-          observaciones_cita: this.Observaciones,
-          fecha_cita: this.date,
-          hora_cita: this.Hora,
+      //console.log(moment(this.hora, "h:mm A").format("HH:mm "));
 
-          id_usuario: parseInt(idusuario),
+      axios
+        .get("http://localhost:8080/xampp/axios/api/CrearCita.php", {
+          params: {
+            id_mascota: this.$route.params.CrearCita,
+            tipo_cita: this.tipo.trim(),
+            descripcion_cita: this.Descri, //this.formatDate(this.ProximaA),
+            observaciones_cita: this.Observaciones,
+            fecha_cita: this.date,
+            hora_cita: moment(this.hora, "h:mm A").format("HH:mm "),
+            id_usuario: idusuario,
+          },
         })
         .then((response) => {
           // Manejar la respuesta exitosa
           //window.location.reload();
-          console.error("XD");
+          //console.error("XD");
           this.$router.push("/XD/Principal");
         })
         .catch((error) => {
@@ -284,30 +309,6 @@ export default {
           console.error(error);
         });
     },
-  },
-  mounted() {
-    const existe = this.checkCookie();
-    if (existe) {
-      console.log("La cookie existe");
-    } else {
-      this.$router.push("/");
-    }
-    // traer mascota
-    console.log(this.$route.params.mascota);
-    axios
-      .get("http://localhost:8080/xampp/axios/api/traerMascota.php", {
-        params: {
-          id_mascota: parseInt(this.$route.params.CrearCita), //ahorita
-        },
-      })
-      .then((response) => {
-        this.mascota = response.data;
-        console.log(this.$route.params.Clientes);
-        console.log(this.mascota);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
   },
 };
 </script>

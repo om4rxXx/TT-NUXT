@@ -12,7 +12,9 @@
             </v-avatar>
           </template>
           <template v-else
-            ><img src="~/assets/images/logito.png" alt="John" />
+            ><v-avatar
+              ><img src="~/assets/images/logito.png" alt="John"
+            /></v-avatar>
           </template>
           {{ veterinario.nombre_veterinario }}
           {{ veterinario.apellido_veterinario }}
@@ -76,7 +78,16 @@ export default {
   },
   mounted() {
     this.actualizarVet(); // Ejecuta la función una vez cuando se carga el componente
-    setInterval(this.actualizarVet, 5000); // Ejecuta la función cada 5 segundos
+    setInterval(this.actualizarVet, 1000); // Ejecuta la función cada 5 segundos
+    axios
+      .get("http://localhost:8080/xampp/axios/api/veterinario.php", {})
+      .then((response) => {
+        this.veterinario = response.data;
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   },
   methods: {
     eliminarCookie() {

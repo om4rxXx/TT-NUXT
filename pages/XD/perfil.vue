@@ -324,8 +324,10 @@ export default {
       console.log(base64);
 
       axios
-        .post("http://localhost:8080/xampp/axios/api/enviarfoto.php", {
-          foto_veterinario: base64,
+        .get("http://localhost:8080/xampp/axios/api/enviarfoto.php", {
+          params: {
+            foto_veterinario: base64,
+          },
         })
         .then((response) => {
           // Manejar la respuesta exitosa

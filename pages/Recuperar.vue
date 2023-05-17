@@ -146,8 +146,10 @@ export default {
     },
     mail() {
       axios
-        .post("http://localhost:8080/xampp/axios/api/enviar_mail.php", {
-          email_veterinario: this.email,
+        .get("http://localhost:8080/xampp/axios/api/enviar_mail.php", {
+          params: {
+            email_veterinario: this.email,
+          },
         })
         .then((response) => {
           // Manejar la respuesta exitosa
@@ -157,9 +159,11 @@ export default {
           console.log(response.data);
 
           axios
-            .post("http://localhost:8080/mail/", {
-              correo: this.email,
-              password: this.contra,
+            .get("http://localhost:8080/mail/", {
+              params: {
+                correo: this.email,
+                password: this.contra,
+              },
             })
             .then((response) => {
               // Manejar la respuesta exitosa

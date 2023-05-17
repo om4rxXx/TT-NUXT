@@ -147,7 +147,7 @@ export default {
     };
   },
   /*esta funcion sirve para traer informacion del veterinario*/
-  async asyncData() {
+  /*async asyncData() {
     try {
       const respuesta = await fetch(
         "http://localhost:8080/xampp/axios/api/prueba.php"
@@ -160,7 +160,7 @@ export default {
       console.log(error);
       return { veterinarios: [] };
     }
-  },
+  },*/
 
   methods: {
     eliminarCookie() {
@@ -180,10 +180,12 @@ export default {
     },*/
     login() {
       axios
-        .post("http://localhost:8080/xampp/axios/api/login.php", {
-          email_veterinario: this.email,
+        .get("http://localhost:8080/xampp/axios/api/login.php", {
+          params: {
+            email_veterinario: this.email,
 
-          password_veterinario: this.password,
+            password_veterinario: this.password,
+          },
         })
         .then((response) => {
           // Manejar la respuesta exitosa

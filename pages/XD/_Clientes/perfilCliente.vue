@@ -577,15 +577,22 @@ export default {
         });
     },
     crearMascota() {
+      console.log(
+        this.$route.params.Clientes,
+        this.formatDate(this.Nacimiento),
+        this.sexo
+      );
       axios
-        .post("http://localhost:8080/xampp/axios/api/crearMascota.php", {
-          id_usuario: parseInt(this.$route.params.Clientes),
-          nombre_mascota: this.NombreM,
-          color_mascota: this.Color,
-          raza_mascota: this.Raza,
-          especie_mascota: this.Especie,
-          fecha_nacimiento_mascota: this.formatDate(this.Nacimiento),
-          sexo_mascota: this.sexo,
+        .get("http://localhost:8080/xampp/axios/api/crearMascota.php", {
+          params: {
+            id_usuario: this.$route.params.Clientes,
+            nombre_mascota: this.NombreM,
+            color_mascota: this.Color,
+            raza_mascota: this.Raza,
+            especie_mascota: this.Especie,
+            fecha_nacimiento_mascota: this.formatDate(this.Nacimiento),
+            sexo_mascota: this.sexo,
+          },
         })
         .then((response) => {
           // Manejar la respuesta exitosa
