@@ -141,7 +141,7 @@ export default {
     // traer datos de consulta
     actualizarVet() {
       axios
-        .get("http://localhost:8080/xampp/axios/api/veterinario.php", {})
+        .get("http://localhost/xampp/axios/api/veterinario.php", {})
         .then((response) => {
           this.veterinario = response.data;
           console.log(response.data);

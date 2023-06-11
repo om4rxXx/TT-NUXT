@@ -291,7 +291,7 @@ export default {
   mounted() {
     // traer datos de consulta
     axios
-      .get("http://localhost:8080/xampp/axios/api/veterinario.php", {})
+      .get("http://localhost/xampp/axios/api/veterinario.php", {})
       .then((response) => {
         this.veterinario = response.data;
         console.log(response.data);
@@ -325,7 +325,7 @@ export default {
       console.log(base64);
 
       axios
-        .post("http://localhost:8080/xampp/axios/api/enviarfoto.php", {
+        .post("http://localhost/xampp/axios/api/enviarfoto.php", {
           foto_veterinario: base64,
         })
         .then((response) => {
@@ -352,7 +352,7 @@ export default {
 
     editarVeterinario() {
       axios
-        .get("http://localhost:8080/xampp/axios/api/editarVeterinario.php", {
+        .get("http://localhost/xampp/axios/api/editarVeterinario.php", {
           params: {
             nombre_veterinario: this.Nombre,
             apellido_veterinario: this.Apellido,

@@ -257,7 +257,7 @@ export default {
   methods: {
     CrearVeterinario() {
       axios
-        .post("http://localhost:8080/xampp/axios/api/CrearVeterinario.php", {
+        .post("http://localhost/xampp/axios/api/CrearVeterinario.php", {
           nombre_veterinario: this.Nombre,
           apellido_veterinario: this.Apellido,
           telefono_veterinario: parseInt(this.Telefono),

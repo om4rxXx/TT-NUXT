@@ -23,6 +23,7 @@
         </v-btn>
       </template>
     </v-snackbar>
+
     <v-main color="#5CBBF6">
       <v-container color="#F5F5F5">
         <Nuxt />
@@ -44,6 +45,7 @@ export default {
       multiLine: true,
       snackbar: false,
       snackbar1: false,
+      snackbar2: false,
       numCitas: "",
       numCitasAnterior: "",
       text: `Nueva cita agregada`,
@@ -56,10 +58,9 @@ export default {
   },
 
   methods: {
-    // traer datos de consulta
     actualizarVet() {
       axios
-        .get("http://localhost:8080/xampp/axios/api/veterinario.php", {})
+        .get("http://localhost/xampp/axios/api/veterinario.php", {})
         .then((response) => {
           this.numCitasAnterior = this.numCitas;
           this.numCitas = response.data.num_citas;
@@ -77,6 +78,7 @@ export default {
         })
         .catch((error) => {
           console.error(error);
+          //this.snackbar2 = true;
         });
     },
   },

@@ -191,9 +191,7 @@
               <p class="text-h4 text-color d-flex justify-center">
                 <v-avatar color="blue-grey lighten-4" size="100">
                   <template v-if="mascota.foto_mascota">
-                    <v-img
-                      :src="'data:image/png;base64,' + mascota.foto_mascota"
-                    ></v-img>
+                    <v-img :src="mascota.foto_mascota"></v-img>
                   </template>
                   <template v-else>
                     <v-icon>mdi-paw</v-icon>
@@ -292,7 +290,7 @@ export default {
   methods: {
     eliminarCita() {
       axios
-        .get("http://localhost:8080/xampp/axios/api/EliminarCita.php", {
+        .get("http://localhost/xampp/axios/api/EliminarCita.php", {
           params: {
             id_cita: this.idCita,
           },
@@ -329,7 +327,7 @@ export default {
     },
     actualizarCitas() {
       axios
-        .get("http://localhost:8080/xampp/axios/api/ListarCitasConmascotas.php")
+        .get("http://localhost/xampp/axios/api/ListarCitasConmascotas.php")
         .then((response) => {
           // Actualiza los datos en el estado de tu componente
           this.citas = response.data;
@@ -344,7 +342,7 @@ export default {
       this.dialog = true;
       this.idMascota = id_mascota;
       axios
-        .get("http://localhost:8080/xampp/axios/api/traerMascota.php", {
+        .get("http://localhost/xampp/axios/api/traerMascota.php", {
           params: {
             id_mascota: this.idMascota, //ahorita
           },

@@ -6,9 +6,7 @@
         <v-toolbar color="#5CBBF6" class="rounded-pill" flat>
           <v-avatar color="blue-grey lighten-4">
             <template v-if="usuario.foto_usuario">
-              <v-img
-                :src="'data:image/png;base64,' + usuario.foto_usuario"
-              ></v-img>
+              <v-img :src="usuario.foto_usuario"></v-img>
             </template>
             <template v-else>
               <v-icon>mdi-account</v-icon>
@@ -30,10 +28,7 @@
             max-width="374"
           >
             <template v-if="usuario.foto_usuario">
-              <v-img
-                height="250"
-                :src="'data:image/png;base64,' + usuario.foto_usuario"
-              ></v-img>
+              <v-img height="250" :src="usuario.foto_usuario"></v-img>
             </template>
             <template v-else>
               <div class="d-flex justify-center">
@@ -306,9 +301,7 @@
                 <v-list-item class="d-flex justify-center">
                   <v-avatar color="blue-grey lighten-4">
                     <template v-if="mascota.foto_mascota">
-                      <v-img
-                        :src="'data:image/png;base64,' + mascota.foto_mascota"
-                      ></v-img>
+                      <v-img :src="mascota.foto_mascota"></v-img>
                     </template>
                     <template v-else>
                       <v-icon>mdi-paw</v-icon>
@@ -452,6 +445,30 @@
         </v-card>
       </v-dialog>
     </v-container>
+    <v-snackbar
+      v-model="snackbar"
+      :multi-line="multiLine"
+      shaped
+      top
+      centered
+      color="success"
+      dark
+    >
+      <h3>{{ textsnack }}</h3>
+
+      <template v-slot:action="{ attrs }">
+        <v-btn
+          v-bind="attrs"
+          @click="snackbar = false"
+          class="ma-2"
+          text
+          icon
+          color="white"
+        >
+          <v-icon large>mdi-close-circle</v-icon>
+        </v-btn>
+      </template>
+    </v-snackbar>
   </v-app>
 </template>
 
@@ -463,6 +480,7 @@ import { component } from "vue/types/umd";
 export default {
   data() {
     return {
+      snackbar: false,
       items: ["Macho", "Hembra"],
       usuario: [],
       mascotas: [],
@@ -482,6 +500,7 @@ export default {
       Raza: "",
       Nacimiento: "",
       sexo: "",
+      textsnack: "",
       rules: {
         required: (value: any) => !!value || "Campo Requerido",
       },
@@ -530,7 +549,7 @@ export default {
     },
     eliminarMascota() {
       axios
-        .get("http://localhost:8080/xampp/axios/api/EliminarMascota.php", {
+        .get("http://localhost/xampp/axios/api/EliminarMascota.php", {
           params: {
             id_mascota: this.idMascota,
           },
@@ -539,6 +558,9 @@ export default {
           // Manejar la respuesta exitosa
           console.log(response.data);
           this.dialogEliminar = false;
+          this.snackbar = true;
+          this.textsnack = "Mascota eliminada correctamente";
+          //this.dialogEditar = false;
           //window.location.reload();
           // Actualizar la lista de mascotas para reflejar el cambio
         })
@@ -554,7 +576,7 @@ export default {
       padecimientos_mascota: string
     ) {
       axios
-        .get("http://localhost:8080/xampp/axios/api/editarMascota.php", {
+        .get("http://localhost/xampp/axios/api/editarMascota.php", {
           params: {
             id_mascota: this.idMascota,
 
@@ -567,7 +589,8 @@ export default {
         .then((response) => {
           // Manejar la respuesta exitosa
           console.log(response.data);
-
+          this.snackbar = true;
+          this.textsnack = "Mascota editada correctamente";
           this.dialogEditar = false;
           // window.location.reload();
         })
@@ -578,7 +601,7 @@ export default {
     },
     crearMascota() {
       axios
-        .post("http://localhost:8080/xampp/axios/api/crearMascota.php", {
+        .post("http://localhost/xampp/axios/api/crearMascota.php", {
           id_usuario: parseInt(this.$route.params.Clientes),
           nombre_mascota: this.NombreM,
           color_mascota: this.Color,
@@ -591,6 +614,9 @@ export default {
           // Manejar la respuesta exitosa
           console.log(response.data);
           this.dialogCrear = false;
+          this.textsnack = "Mascota creada correctamente";
+          this.snackbar = true;
+          //this.textsnack = "Mascota creada correctamente";
           // window.location.reload();
         })
         .catch((error) => {
@@ -601,7 +627,7 @@ export default {
     actualizar() {
       // traer usuario
       axios
-        .get("http://localhost:8080/xampp/axios/api/traerUser.php", {
+        .get("http://localhost/xampp/axios/api/traerUser.php", {
           params: {
             id_usuario: parseInt(this.$route.params.Clientes), //ahorita
           },
@@ -616,7 +642,7 @@ export default {
         });
       //nueva traer mascotas
       axios
-        .get("http://localhost:8080/xampp/axios/api/trareMascotas.php", {
+        .get("http://localhost/xampp/axios/api/trareMascotas.php", {
           params: {
             id_usuario: parseInt(this.$route.params.Clientes),
           },
@@ -631,7 +657,7 @@ export default {
         });
       /// traer resumen de citas
       axios
-        .get("http://localhost:8080/xampp/axios/api/CitasUsuario.php", {
+        .get("http://localhost/xampp/axios/api/CitasUsuario.php", {
           params: {
             id_usuario: parseInt(this.$route.params.Clientes),
           },

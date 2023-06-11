@@ -146,7 +146,7 @@ export default {
     },
     mail() {
       axios
-        .post("http://localhost:8080/xampp/axios/api/enviar_mail.php", {
+        .post("http://localhost/xampp/axios/api/enviar_mail.php", {
           email_veterinario: this.email,
         })
         .then((response) => {
@@ -157,7 +157,7 @@ export default {
           console.log(response.data);
 
           axios
-            .post("http://localhost:8080/mail/", {
+            .post("http://localhost/mail/", {
               correo: this.email,
               password: this.contra,
             })

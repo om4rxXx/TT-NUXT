@@ -38,9 +38,7 @@
               <template v-slot:[`item.usuario`]="{ item }">
                 <v-avatar color="blue-grey lighten-4">
                   <template v-if="item.foto_usuario">
-                    <v-img
-                      :src="'data:image/png;base64,' + item.foto_usuario"
-                    ></v-img>
+                    <v-img :src="item.foto_usuario"></v-img>
                   </template>
                   <template v-else>
                     <v-icon>mdi-account</v-icon>
@@ -156,6 +154,30 @@
         </v-dialog>
       </v-col>
     </v-container>
+    <v-snackbar
+      v-model="snackbar"
+      :multi-line="multiLine"
+      shaped
+      top
+      centered
+      color="success"
+      dark
+    >
+      <h3>{{ textsnack }}</h3>
+
+      <template v-slot:action="{ attrs }">
+        <v-btn
+          v-bind="attrs"
+          @click="snackbar = false"
+          class="ma-2"
+          text
+          icon
+          color="white"
+        >
+          <v-icon large>mdi-close-circle</v-icon>
+        </v-btn>
+      </template>
+    </v-snackbar>
   </v-app>
 </template>
 
@@ -173,10 +195,13 @@ export default {
   data() {
     return {
       search: "",
+      multiLine: true,
       dialogEstatus: false,
       dialogEliminar: false,
       idUsuario: 0,
       estatus: 0,
+      snackbar: false,
+      textsnack: "",
 
       headers: [
         {
@@ -186,6 +211,7 @@ export default {
         },
         {
           text: "Estado de Solicitud",
+          sortable: false,
           align: "center",
           value: "estatus_usuario",
         },
@@ -195,7 +221,12 @@ export default {
           value: "num_mascotas",
           align: "center",
         },
-        { text: "Dar de baja", value: "baja_usuario", align: "center" },
+        {
+          text: "Dar de baja",
+          value: "baja_usuario",
+          align: "center",
+          sortable: false,
+        },
       ],
 
       usuarios: [],
@@ -205,7 +236,7 @@ export default {
   async mounted() {
     try {
       const response = await axios.get(
-        "http://localhost:8080/xampp/axios/api/listar_usersYmascotas.php"
+        "http://localhost/xampp/axios/api/listar_usersYmascotas.php"
       );
       this.usuarios = response.data;
       console.log(this.usuarios);
@@ -213,7 +244,7 @@ export default {
       // Actualizar la lista de usuarios y mascotas cada 5 segundos
       setInterval(async () => {
         const response = await axios.get(
-          "http://localhost:8080/xampp/axios/api/listar_usersYmascotas.php"
+          "http://localhost/xampp/axios/api/listar_usersYmascotas.php"
         );
         this.usuarios = response.data;
         console.log(this.usuarios);
@@ -259,7 +290,7 @@ export default {
     },
     CambiarEstado(id: string, number: number) {
       axios
-        .get("http://localhost:8080/xampp/axios/api/editarstatus.php", {
+        .get("http://localhost/xampp/axios/api/editarstatus.php", {
           params: {
             id_usuario: this.idUsuario, // suponiendo que tienes una variable 'id' en tu componente Vue
             numero: this.estatus, // suponiendo que tienes una variable 'numero' en tu componente Vue
@@ -267,8 +298,10 @@ export default {
         })
         .then((response) => {
           console.log(response.data);
+          this.snackbar = true;
           this.dialogEstatus = false;
           this.dialogEliminar = false;
+
           // window.location.reload();
         })
         .catch(function (error) {
@@ -279,11 +312,13 @@ export default {
       this.dialogEstatus = true;
       this.idUsuario = id_usuario;
       this.estatus = number;
+      this.textsnack = "Usuario aceptado correctamente";
     },
     openDialogEliminar(id_usuario: number, number: number) {
       this.dialogEliminar = true;
       this.idUsuario = id_usuario;
       this.estatus = number;
+      this.textsnack = "Usuario dado de baja correctamente";
     },
     XD(id: string) {
       this.$router.push(id + "/perfilCliente");

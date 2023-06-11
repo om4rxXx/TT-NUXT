@@ -244,7 +244,7 @@ export default {
   mounted() {
     // traer datos de consulta
     axios
-      .get("http://localhost:8080/xampp/axios/api/traerCitaparacons.php", {
+      .get("http://localhost/xampp/axios/api/traerCitaparacons.php", {
         params: {
           id_cita: parseInt(this.$route.params.Citas), //ahorita
         },
@@ -293,7 +293,7 @@ export default {
       console.log(parseInt(idmascota));
 
       axios
-        .post("http://localhost:8080/xampp/axios/api/CrearConsulta.php", {
+        .post("http://localhost/xampp/axios/api/CrearConsulta.php", {
           id_usuario: parseInt(this.$route.params.Clientes),
           tipo_consulta: this.tipo,
           proxima_cita_consulta: this.formatDate(this.ProximaA),
@@ -319,7 +319,7 @@ export default {
       console.log(parseInt(idmascota));
 
       axios
-        .post("http://localhost:8080/xampp/axios/api/CrearConsulta.php", {
+        .post("http://localhost/xampp/axios/api/CrearConsulta.php", {
           id_usuario: parseInt(this.$route.params.Clientes),
           tipo_consulta: this.tipo,
           proxima_cita_consulta: this.formatDate(this.ProximaA),

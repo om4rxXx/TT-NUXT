@@ -150,7 +150,7 @@ export default {
   async asyncData() {
     try {
       const respuesta = await fetch(
-        "http://localhost:8080/xampp/axios/api/prueba.php"
+        "http://localhost/xampp/axios/api/prueba.php"
       );
       const post = await respuesta.json();
       console.log(post);
@@ -180,7 +180,7 @@ export default {
     },*/
     login() {
       axios
-        .post("http://localhost:8080/xampp/axios/api/login.php", {
+        .post("http://localhost/xampp/axios/api/login.php", {
           email_veterinario: this.email,
 
           password_veterinario: this.password,

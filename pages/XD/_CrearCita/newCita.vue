@@ -20,11 +20,7 @@
                       <v-col sm="3" md="3">
                         <v-avatar size="90" color="blue-grey lighten-4">
                           <template v-if="mascota.foto_mascota">
-                            <v-img
-                              :src="
-                                'data:image/png;base64,' + mascota.foto_mascota
-                              "
-                            ></v-img>
+                            <v-img :src="mascota.foto_mascota"></v-img>
                           </template>
                           <template v-else>
                             <v-icon>mdi-paw</v-icon>
@@ -234,7 +230,7 @@ export default {
     },
     sendDateToServer() {
       axios
-        .get("http://localhost:8080/xampp/axios/api/HorasDisponibles.php", {
+        .get("http://localhost/xampp/axios/api/HorasDisponibles.php", {
           params: {
             fecha_cita: this.date, // suponiendo que tienes una variable 'numero' en tu componente Vue
           },
@@ -265,7 +261,7 @@ export default {
     crearCita(idusuario: string) {
       console.log(parseInt(idusuario));
       axios
-        .post("http://localhost:8080/xampp/axios/api/CrearCita.php", {
+        .post("http://localhost/xampp/axios/api/CrearCita.php", {
           id_mascota: parseInt(this.$route.params.CrearCita),
           tipo_cita: this.tipo.trim(),
           descripcion_cita: this.Descri, //this.formatDate(this.ProximaA),
@@ -297,7 +293,7 @@ export default {
     // traer mascota
     console.log(this.$route.params.mascota);
     axios
-      .get("http://localhost:8080/xampp/axios/api/traerMascota.php", {
+      .get("http://localhost/xampp/axios/api/traerMascota.php", {
         params: {
           id_mascota: parseInt(this.$route.params.CrearCita), //ahorita
         },

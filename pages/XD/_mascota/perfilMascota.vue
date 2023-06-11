@@ -6,9 +6,7 @@
         <v-toolbar color="#5CBBF6" class="rounded-pill" app>
           <v-avatar color="blue-grey lighten-4">
             <template v-if="mascota.foto_usuario">
-              <v-img
-                :src="'data:image/png;base64,' + mascota.foto_usuario"
-              ></v-img>
+              <v-img :src="mascota.foto_usuario"></v-img>
             </template>
             <template v-else>
               <v-icon>mdi-account</v-icon>
@@ -27,9 +25,7 @@
               ><v-col sm="3" md="3">
                 <v-avatar size="90" color="blue-grey lighten-4">
                   <template v-if="mascota.foto_mascota">
-                    <img
-                      :src="'data:image/png;base64,' + mascota.foto_mascota"
-                      alt="John"
+                    <img :src="mascota.foto_mascota" alt="John"
                   /></template>
                   <template v-else>
                     <v-icon>mdi-paw</v-icon>
@@ -230,7 +226,7 @@ export default {
     // traer mascota
     console.log(this.$route.params.mascota);
     axios
-      .get("http://localhost:8080/xampp/axios/api/traerMascota.php", {
+      .get("http://localhost/xampp/axios/api/traerMascota.php", {
         params: {
           id_mascota: parseInt(this.$route.params.mascota), //ahorita
         },
@@ -245,7 +241,7 @@ export default {
       });
     //nueva traer consultas VVVVVVVVV
     axios
-      .get("http://localhost:8080/xampp/axios/api/HistorialV.php", {
+      .get("http://localhost/xampp/axios/api/HistorialV.php", {
         params: {
           id_mascota: parseInt(this.$route.params.mascota), //ahorita
         },
@@ -260,7 +256,7 @@ export default {
       });
     // traer consulta MMMMMMM
     axios
-      .get("http://localhost:8080/xampp/axios/api/HistorialC.php", {
+      .get("http://localhost/xampp/axios/api/HistorialC.php", {
         params: {
           id_mascota: parseInt(this.$route.params.mascota), //ahorita
         },
