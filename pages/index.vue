@@ -168,16 +168,7 @@ export default {
         "Veterinario=" + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
       //this.$cookies.set("username", "gowtham");
     },
-    /*checkCookie() {
-      const cookies = document.cookie.split("; ");
-      for (let i = 0; i < cookies.length; i++) {
-        const cookie = cookies[i].split("=");
-        if (cookie[0] === "XD") {
-          console.log("La cookie existe"); // La cookie existe
-        }
-      }
-      console.log("NO existe");
-    },*/
+
     login() {
       axios
         .post("http://localhost/xampp/axios/api/login.php", {
