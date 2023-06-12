@@ -26,7 +26,7 @@
 
     <v-main color="#5CBBF6">
       <v-dialog v-model="dialogconect" persistent max-width="400">
-        <v-card rounded="xl" dark color="#FF5252">
+        <v-card rounded="xl" style="" dark color="#FF5252">
           <v-card-title class="d-flex justify-center text-h5">
             No hay conexión con el servidor
           </v-card-title>
