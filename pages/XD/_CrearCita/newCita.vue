@@ -260,6 +260,11 @@ export default {
     },
     crearCita(idusuario: string) {
       console.log(parseInt(idusuario));
+      console.log(
+        "hora",
+        this.Hora,
+        moment(this.Hora, "h:mm A").format("HH:mm")
+      );
       axios
         .post("http://localhost/xampp/axios/api/CrearCita.php", {
           id_mascota: parseInt(this.$route.params.CrearCita),
@@ -267,7 +272,7 @@ export default {
           descripcion_cita: this.Descri, //this.formatDate(this.ProximaA),
           observaciones_cita: this.Observaciones,
           fecha_cita: this.date,
-          hora_cita: this.Hora,
+          hora_cita: moment(this.Hora, "h:mm A").format("HH:mm"),
 
           id_usuario: parseInt(idusuario),
         })

@@ -600,6 +600,10 @@ export default {
         });
     },
     crearMascota() {
+      console.log(
+        "fecha",
+        moment(this.Nacimiento, "DD-MM-YYYY").format("YYYY-MM-DD")
+      );
       axios
         .post("http://localhost/xampp/axios/api/crearMascota.php", {
           id_usuario: parseInt(this.$route.params.Clientes),
@@ -613,8 +617,8 @@ export default {
         .then((response) => {
           // Manejar la respuesta exitosa
           console.log(response.data);
-          this.dialogCrear = false;
-          this.textsnack = "Mascota creada correctamente";
+          // this.dialogCrear = false;
+          //this.textsnack = "Mascota creada correctamente";
           this.snackbar = true;
           //this.textsnack = "Mascota creada correctamente";
           // window.location.reload();
